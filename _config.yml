@@ -111,7 +111,7 @@ deploy:
   delete: true
   verbose: true
   ignore_errors: true
-  repo: 'https://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@github.com/sunquan123/sunquan123.github.io'
-  branch: 'master'
+#  repo: 'https://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@github.com/sunquan123/sunquan123.github.io'
+#  branch: 'master'
 
 
