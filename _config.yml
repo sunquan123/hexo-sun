@@ -13,7 +13,7 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://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@github.com/sunquan123/sunquan123.github.io.git
+url: https://106.14.127.79:8848/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -102,8 +102,16 @@ theme: shoka
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: 'git'
-  repo: 'https://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@github.com/sunquan123/sunquan123.github.io'
+#  type: 'git'
+  type: 'rsync'
+  host: 106.14.127.79
+  user: root
+  root: /opt/hexo-sun/
+  port: 22
+  delete: true
+  verbose: true
+  ignore_errors: true
+  repo: 'https://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@github.com/sunquan123/sunquan123.github.io'
   branch: 'master'
 
 
