@@ -12,9 +12,9 @@ tags:
 - 单机单库没这个问题
 
 - 从 1:1 -> 1:N -> N:N
-
+  
   单体应用被拆分成微服务应用，原来的三个模块被拆分成三个独立的应用，分别使用三个独立的数据源，业务操作需要调用三个服务来完成。此时每个服务内部的数据一致性由本地事务来保证， 但是全局的数据一致性问题没法保证。
-
+  
   ![img](seata架构.png)
 
 一句话：一次业务操作需要跨多个数据源或需要跨多个系统进行远程调用，就会产生分布式事务问题。
@@ -27,7 +27,7 @@ Seata 是一款开源的分布式事务解决方案，致力于提供高性能�
 
 [官方地址](http://seata.io/zh-cn/index.html)
 
-###  1 XID+3 组件模型
+### 1 XID+3 组件模型
 
 ##### TC (Transaction Coordinator) - 事务协调者
 
@@ -52,8 +52,6 @@ Seata 是一款开源的分布式事务解决方案，致力于提供高性能�
 5. TC 调度 XID 下管辖的全部分支事务完成提交或回滚请求。
 
 ![img](seata模型流程.png)
-
-
 
 ## Seata实战
 
@@ -92,7 +90,7 @@ store {
     # async, sync
     flushDiskMode = async
   }
-  
+
     ## database store property
   db {
     ## the implement of javax.sql.DataSource, such as DruidDataSource(druid)/BasicDataSource(dbcp)/HikariDataSource(hikari) etc.
@@ -237,11 +235,11 @@ seata_storage 库下建 t_storage 表
 
 ```sql
 CREATE TABLE t_storage (
-		`id` BIGINT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		`product_id` BIGINT(11) DEFAULT NULL COMMENT '产品id',
-		`total` INT(11) DEFAULT NULL COMMENT '总库存',
-		`used` INT(11) DEFAULT NULL COMMENT '已用库存',
-		`residue` INT(11) DEFAULT NULL COMMENT '剩余库存'
+        `id` BIGINT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `product_id` BIGINT(11) DEFAULT NULL COMMENT '产品id',
+        `total` INT(11) DEFAULT NULL COMMENT '总库存',
+        `used` INT(11) DEFAULT NULL COMMENT '已用库存',
+        `residue` INT(11) DEFAULT NULL COMMENT '剩余库存'
 ) ENGINE=INNODB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 # 初始化一条产品的库存记录
@@ -826,7 +824,6 @@ public class OrderServiceImpl implements OrderService {
     log.info("----->下订单结束了，O(∩_∩)O哈哈~");
   }
 }
-
 ```
 
 ##### Config层
@@ -908,8 +905,6 @@ public class OrderController {
   }
 }
 ```
-
-
 
 ### Storage-Module 模块搭建
 
@@ -1118,8 +1113,6 @@ public class StorageController {
 }
 ```
 
-
-
 ### Account-Module 模块搭建
 
 模块名：seata-Account-service2003 
@@ -1267,7 +1260,6 @@ AccountMapper.xml
     user_id = #{userId};
   </update>
 </mapper>
-
 ```
 
 ##### Service层
@@ -1344,8 +1336,6 @@ public class AccountController {
   }
 }
 ```
-
-
 
 ### @GlobalTransactional 使用
 
@@ -1441,27 +1431,24 @@ public class OrderServiceImpl implements OrderService {
 
 再次模拟 AccountServiceImpl 添加超时，下单后三个数据库数据都没有改变，达到了分支事务异常，全局回滚的效果
 
-
-
 # Seata 之全局事务原理
 
 ### 事务二阶段执行流程
 
 - 一阶段加载：
-
+  
   解析业务sql，找到业务sql要更新的业务数据，生成 before image
-
+  
   执行业务sql，更新业务数据
-
+  
   业务数据更新后，保存新的业务数据为 after image ，生成行锁
 
 - 二阶段提交：
-
+  
   如果全部事务顺利提交，Seata框架将  before image、after image、行锁全部删除
 
 - 二阶段回滚：
-
+  
   如果需要回滚，Seata将会用 before image 生成 逆向sql 还原业务数据，但需要先检查脏写，对比数据库当前业务数据和 after image，如果一致，则没有脏写，可以回滚；如果不一致，有脏写，则需要转人工处理。
 
 ![img](事务二阶段执行流程.png)
-
