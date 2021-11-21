@@ -38,7 +38,67 @@ public class OomTest {
 
 ### 二、虚拟机栈和本地方法栈溢出
 
+由于在hotspot虚拟机中不区分虚拟机栈和本地方法栈，因此栈容量只由-Xss参数设定。关于虚拟机栈和本地方法栈，在Java虚拟机规范中描述了两种异常：
 
+1. 如果线程请求的栈深度超过了虚拟机所允许的最大深度，就抛出了大家喜闻乐见的`StackOverFlowError`异常。
+
+2. 如果虚拟机在拓展栈时无法申请到足够的空间，则抛出`OutOfMemoryError`异常。
+
+#### 1、StackOverFlowError
+
+下面例子思路就是无限递归调用方法，指定-Xss参数减少栈内存容量，导致栈帧溢出。
+
+#### 动手验证
+
+```java
+  /*jvm options：-Xss160k*/
+  public static void testStackOverFlowError() {
+    try {
+      throwStackOverFlowErrorMethod();
+    } catch (Throwable t) {
+      System.out.println("stack length:" + stackLength);
+      throw t;
+    }
+  }
+
+  public static void throwStackOverFlowErrorMethod() {
+    stackLength++;
+    throwStackOverFlowErrorMethod();
+  }
+```
+
+#### 效果
+
+![](oom异常5.png)
+
+#### 2、OutOfMemoryError
+
+下面例子说明了在创建线程过多的情况下，虚拟机无法申请更多的空间创建线程了，则会抛出此异常。PS：这里动手验证可能会导致操作系统假死，就不验证了。
+
+#### 动手验证
+
+```java
+  /*jvm options：-Xss2M*/
+  public static void testCreateThreadOutOfMemoryError() {
+    while (true) {
+      Thread t =
+          new Thread(
+              new Runnable() {
+                @Override
+                public void run() {
+                  while (true) {}
+                }
+              });
+      t.start();
+    }
+  }
+```
+
+#### 效果
+
+```java
+java.lang.OutOfMemoryError: unable to create new native thread
+```
 
 ### 三、方法区和运行时常量池溢出
 
@@ -62,9 +122,6 @@ public class OomTest {
 #### 2、字符串常量池溢出的基本思路就是不停的向容器中添加新的字符串对象。
 
 #### 动手验证
-
-
-
 
 | 参数                       | 解释                                                                                                                                                                |
 |:------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
