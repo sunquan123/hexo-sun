@@ -1,4 +1,4 @@
-alternate: Yume Shokaaaa
+alternate: ''
 darkmode: true
 auto_scroll: true
 # 是否显示页面加载动画 loading-cat
@@ -65,12 +65,12 @@ menu:
   # links: /links/ || magic
 
 social:
-  github: https://github.com/yourname || github || "#191717"
+  github: https://github.com/sunquan123 || github || "#191717"
   #google: https://plus.google.com/yourname || google
-  twitter: https://twitter.com/yourname || twitter || "#00aff0"
-  zhihu: https://www.zhihu.com/people/yourname || zhihu || "#1e88e5"
+  #twitter: https://twitter.com/yourname || twitter || "#00aff0"
+  #zhihu: https://www.zhihu.com/people/yourname || zhihu || "#1e88e5"
   music: https://music.163.com/#/user/home?id=yourid || cloud-music || "#e60026"
-  weibo: https://weibo.com/yourname || weibo || "#ea716e"
+  #weibo: https://weibo.com/yourname || weibo || "#ea716e"
   about: https://about.me/yourname || address-card || "#3b5998"
   #email: mailto:yourname@mail.com || envelope || "#55acd5"
   #facebook: https://www.facebook.com/yourname || facebook
@@ -85,7 +85,8 @@ sidebar:
   position: left
   #position: right
   # Replace the default avatar image and set the url here.
-  avatar: avatar.jpg
+  # 个人头像地址 /source/_data/images/avatar.jpeg
+  avatar: avatar.jpeg
 
 widgets:
   random_posts: true # 显示随机文章

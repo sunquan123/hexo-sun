@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: CodeFire
-subtitle: ''
-description: ''
+title: S-Q's blog
+subtitle: '一个代码笔记自留地'
+description: '我养你啊'
 keywords:
-author: Quan Sun
+author: S-Q
 language: zh-CN
 timezone: ''
 
@@ -90,9 +90,9 @@ pagination_dir: page
 
 # Include / Exclude file(s)
 ## include:/exclude: options only apply to the 'source/' folder
-include:
-exclude:
-ignore:
+include: []
+exclude: []
+ignore: []
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
