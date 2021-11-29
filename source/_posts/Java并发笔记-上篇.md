@@ -520,33 +520,32 @@ Node 节点是啥？答：你有见过 HashMap 的 Node 节点吗？JDK 用 stat
    static final class Node{
        //共享
        static final Node SHARED = new Node();
-       
+   
        //独占
        static final Node EXCLUSIVE = null;
-       
+   
        //线程被取消了
        static final int CANCELLED = 1;
-       
+   
        //后继线程需要唤醒
        static final int SIGNAL = -1;
-       
+   
        //等待condition唤醒
        static final int CONDITION = -2;
-       
+   
        //共享式同步状态获取将会无条件地传播下去
        static final int PROPAGATE = -3;
-       
+   
        // 初始为e，状态是上面的几种
        volatile int waitStatus;
-       
+   
        // 前置节点
        volatile Node prev;
-       
+   
        // 后继节点
        volatile Node next;
    
        // ...
-   
    ```
 
 4. 总结
@@ -674,7 +673,6 @@ public class AQSDemo {
         .start();
   }
 }
-
 ```
 
 > **先来看看线程 A（客户 A）的执行流程**
@@ -934,17 +932,3 @@ A 线程终于要 `unlock()` 了吗？真不容易啊！
 #### AQS 源码解读案例图示
 
 ![](rel-35.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
