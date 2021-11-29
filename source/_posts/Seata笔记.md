@@ -2,7 +2,7 @@
 layout: shoka
 title: Seata笔记
 date: 2021-11-03 11:34:39
-tags:
+tags: ['Seata']
 ---
 
 ## 分布式事务问题

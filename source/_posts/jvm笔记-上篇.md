@@ -2,7 +2,7 @@
 layout: shoka
 title: jvm笔记-上篇
 date: 2021-11-20 17:39:49
-tags:
+tags: ['JVM']
 
 ---
 
@@ -207,5 +207,3 @@ DirectMemory容量可以通过`-XX:MaxDirectMemorySize`指定，如果不指定�
 ![](oom异常4.png)
 
 这里的MaxDirectMemorySize参数没有起作用。
-
-

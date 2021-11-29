@@ -2,7 +2,7 @@
 layout: shoka
 title: Java并发笔记-上篇
 date: 2021-11-16 08:56:30
-tags:
+tags: ['JUC']
 ---
 
 # Java并发笔记
