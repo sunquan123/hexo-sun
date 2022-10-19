@@ -879,12 +879,11 @@ hexo-generator-category@^1.0.0:
   dependencies:
     hexo-pagination "1.0.0"
 
-hexo-generator-index@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/hexo-generator-index/download/hexo-generator-index-2.0.0.tgz"
+hexo-generator-index@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/hexo-generator-index/-/hexo-generator-index-3.0.0.tgz#4c9233731e027a6af6491886a4aafe08ffdaffe0"
   dependencies:
-    hexo-pagination "1.0.0"
-    timsort "^0.3.0"
+    hexo-pagination "3.0.0"
 
 hexo-generator-tag@^1.0.0:
   version "1.0.0"
@@ -907,6 +906,10 @@ hexo-log@^2.0.0:
 hexo-pagination@1.0.0:
   version "1.0.0"
   resolved "https://registry.nlark.com/hexo-pagination/download/hexo-pagination-1.0.0.tgz"
+
+hexo-pagination@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/hexo-pagination/-/hexo-pagination-3.0.0.tgz#b98b050bbddff25ae646e3d00ad607ac6ae77ea7"
 
 hexo-renderer-ejs@^2.0.0:
   version "2.0.0"
@@ -1903,10 +1906,6 @@ text-table@^0.2.0:
 tildify@^2.0.0:
   version "2.0.0"
   resolved "https://registry.nlark.com/tildify/download/tildify-2.0.0.tgz"
-
-timsort@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.nlark.com/timsort/download/timsort-0.3.0.tgz"
 
 title-case@^2.1.0:
   version "2.1.1"
