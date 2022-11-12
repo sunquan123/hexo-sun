@@ -859,9 +859,9 @@ hexo-deployer-rsync@^1.0.0:
     chalk "^2.4.1"
     hexo-util "^1.0.0"
 
-hexo-feed@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.nlark.com/hexo-feed/download/hexo-feed-1.1.0.tgz"
+hexo-feed@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/hexo-feed/-/hexo-feed-1.1.1.tgz#fc16e3473c55122a8f2243c420aeb3cb64bcb26b"
 
 hexo-front-matter@^3.0.0:
   version "3.0.0"
