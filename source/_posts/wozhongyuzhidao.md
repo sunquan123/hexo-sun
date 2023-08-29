@@ -11,15 +11,15 @@ tags:
 
 事情的起因是，我某一天突然想写一个小程序，于是我准备用我的阿里云服务器提供后台服务。一开始的开发是很简单的，我需要搭建一个web系统提供http服务，再写一个小程序的简单页面作为客户端。但是在小程序上线的时候，我查看到微信对小程序服务器的限制是要求使用域名访问+https访问时，我就发现问题不简单了。
 
-![](./wozhongyuzhidao/wx-yaoqiu.png)
+![](wx-yaoqiu.png)
 
 接下来，就是对服务器增加域名和ssl证书的环节。我先使用了阿里云的域名服务，花6块钱找了个便宜域名：
 
-![](./wozhongyuzhidao/aliyun-domain.png)
+![](aliyun-domain.png)
 
 接着也用它的ssl证书服务，选择了免费证书：
 
-![](./wozhongyuzhidao/aliyun-ssl.png)
+![](aliyun-ssl.png)
 
 把他们配置到nginx上其实也很快：
 
@@ -110,27 +110,27 @@ http {
 
 域名刚注册完，访问时阿里云就贴心的提示了域名需要备案的信息，我也是花了点时间去做备案，当然备案的审批流程需要些时间，我也就先不管它了。
 
-![](./wozhongyuzhidao/aliyun-beian.png)
+![](aliyun-beian.png)
 
 ### 发展阶段
 
 接着，我的小程序就可以开始本地调试了，先运行到小程序模拟器上。结果，点击上传，开始报错了（别急，这才是噩梦的开始）：
 
-![](./wozhongyuzhidao/wx-1.png)
+![](wx-1.png)
 
 这一串错误可以看出是https请求失败了，至于为啥呢，我还不知道。于是，我打开了大名鼎鼎的wireshark，开始抓包。（有时候客户端也会报错 url not in domain list）
 
 一开始，我并不了解https的请求流程，特意去查了下资料并比对了下实操，正常的https请求流程是这样的：
 
-![](./wozhongyuzhidao/wireshark-2.png)
+![](wireshark-2.png)
 
 可以看到从`TCP`的`SYN` `SYN ACK` `ACK`开始，建立https的连接需要客户端和服务端交流各种参数，确认通信无误才会结束。而我的小程序一发https请求，对应的抓包结果是：
 
-![](./wozhongyuzhidao/wireshark-1.png)
+![](wireshark-1.png)
 
 只有client hello就结束了？！后面一个rst是个啥，我还不懂捏。
 
-![](./wozhongyuzhidao/baidu-article1.png)
+![](baidu-article1.png)
 
 原来TCP RST信息是说这个TCP连接被截断了，后续的请求需要重新建立一个TCP连接了。也就是说这个https请求到这生生就结束了！
 
@@ -144,7 +144,7 @@ http {
 
 1. 更换ssl证书类型，大概就是选了阿里云的不同种类的证书
    
-   ![](./wozhongyuzhidao/aliyun-ssl2.png)
+   ![](aliyun-ssl2.png)
 
 2. 检查2%情况下的抓包与失败时的区别
    
@@ -152,31 +152,31 @@ http {
 
 3. 使用openssl检查我的nginx支持哪些https的版本
    
-   ![](./wozhongyuzhidao/aliyun-server.png)
+   ![](aliyun-server.png)
 
 ### 重点阶段
 
 重点来了，当我在检查我的服务器支持哪些https版本时，报错信息让我又去搜索了一遍：
 
-![](./wozhongyuzhidao/aliyun-sousuo.png)
+![](aliyun-sousuo.png)
 
 这篇文章的开头就让我觉得作者是个很懂行的人：
 
-![](./wozhongyuzhidao/aliyun-article1.png)
+![](aliyun-article1.png)
 
 这一段确实需要有一定研究经验才能得出结论：
 
-![](./wozhongyuzhidao/aliyun-article2.png)
+![](aliyun-article2.png)
 
 重要信息来了：
 
-![](./wozhongyuzhidao/aliyun-article3.png)
+![](aliyun-article3.png)
 
 我以为是我的服务器主动断开连接导致失败的，原来请求被中间层直接截断了，原因是域名备案的问题。这也是我一直没想到的点。
 
 这里提到了云盾检查的原理是截取到TCP client hello中的SNI字段，从而得到服务器域名。那我得检查一下我的client hello是否也是这样：
 
-![](./wozhongyuzhidao/aliyun-server2.png)
+![](aliyun-server2.png)
 
 这也就证实了之前的所有异常现象：
 
