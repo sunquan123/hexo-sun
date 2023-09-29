@@ -301,9 +301,3 @@ vendors:
     valine: gh/amehime/MiniValine@4.2.2-beta10/dist/MiniValine.min.js
     copy_tex: npm/katex@0.12.0/dist/contrib/copy-tex.min.js
     chart: npm/frappe-charts@1.5.0/dist/frappe-charts.min.iife.min.js
-
-
-experiments:
-  gradient: true # 使用CSS渐变作为文章封面
-  fixedCover: "/cover.webp" # 当gradient为true时使用的主页面cover或者主界面的固定Cover(0.1.5+)
-  # 上面的配置请设置为自己的背景图片
