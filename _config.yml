@@ -99,6 +99,11 @@ ignore: []
 ## Themes: https://hexo.io/themes/
 theme: shoka
 
+experiments:
+  gradient: true # 使用CSS渐变作为文章封面
+  fixedCover: "/cover.webp" # 当gradient为true时使用的主页面cover或者主界面的固定Cover(0.1.5+)
+  # 上面的配置请设置为自己的背景图片
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
